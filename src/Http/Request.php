@@ -17,4 +17,16 @@ class Request {
 
         return $data;
     }
+
+    public static function authorization() {
+        $authorization = getallheaders();
+
+        if (!isset($authorization['Authorization'])) return [ 'error' => 'Authorization header not provided!' ];
+
+        $tokenPartials = explode(' ', $authorization['Authorization']);
+
+        if (count($tokenPartials)) return [ 'error' => 'Provide a valid authorization header!' ];
+
+        return $tokenPartials[1] ?? '';
+    }
 }
