@@ -25,7 +25,7 @@ class Request {
 
         $tokenPartials = explode(' ', $authorization['Authorization']);
 
-        if (count($tokenPartials)) return [ 'error' => 'Provide a valid authorization header!' ];
+        if (count($tokenPartials) !== 2) return [ 'error' => 'Provide a valid authorization header!' ];
 
         return $tokenPartials[1] ?? '';
     }

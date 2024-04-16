@@ -76,19 +76,12 @@ class User extends Database {
             UPDATE 
                 users 
             SET 
-                name = ?, 
-                email = ?, 
-                password = ? 
+                name = ?
             WHERE 
-                id = ?
+                id = ?;
         ");
 
-        $statement->execute([
-            $data['name'],
-            $data['email'],
-            $data['password'],
-            $id
-        ]);
+        $statement->execute([ $data['name'], $id ]);
 
         return $statement->rowCount() > 0 ? true : false;
     }

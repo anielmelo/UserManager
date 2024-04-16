@@ -34,8 +34,8 @@ class UserService {
     public static function auth(array $data) {
         try {
             $fields = Validator::validate([
-                'email' => $data['email'] ?? '',
-                'password' => $data['password'] ?? ''
+                'email'    => $data['email']       ?? '',
+                'password' => $data['password']    ?? ''
             ]);
 
             $user = User::authenticate($fields);
@@ -85,12 +85,8 @@ class UserService {
             if (!$payload) return [ 'unauthorized' => 'Please, login to access this feature!' ];
 
             $fields = Validator::validate([
-                'name'     => $data['name']     ?? '',
-                'email'    => $data['email']    ?? '',
-                'password' => $data['password'] ?? ''
+                'name' => $data['name'] ?? ''
             ]);
-
-            $fields['password'] = password_hash($fields['password'], PASSWORD_DEFAULT);
 
             $user = User::update($payload['id'], $fields);
 

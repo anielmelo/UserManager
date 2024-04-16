@@ -92,7 +92,7 @@ class UserController {
         $authorization = $request::authorization();
         $body = $request::body();
 
-        $responseUser = UserService::update($authorization, $body);
+        $responseUser = UserService::update($body, $authorization);
 
         if(isset($responseUser['unauthorized'])) {
             return $response::json([
