@@ -1,5 +1,5 @@
-# AnnotationSystem
-Esta API foi desenvolvida como método de estudo da linguagem PHP, ela permite aos usuários se cadastrar, editar sua conta e excluir sua conta. Além disso, ela possui um sistema de autenticação para garantir a segurança de rotas sensíveis.
+# UserManager
+Esta API foi desenvolvida como método de estudo da linguagem PHP, ela permite aos usuários se cadastrar, editar e excluir sua conta. Além disso, ela possui um sistema de autenticação para garantir a segurança de rotas sensíveis.
 
 ## Recursos Disponíveis
 
@@ -16,7 +16,6 @@ A API oferece os seguintes recursos:
 
 ### Backend
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
-          
 
 ## Endpoints da API
 
