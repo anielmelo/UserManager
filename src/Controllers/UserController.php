@@ -34,7 +34,7 @@ class UserController {
             "success" => "true",
             "data"    => $responseUser
         ], 201);
-    }
+    } 
 
     public static function login(Request $request, Response $response) {
         $body = $request::body();
@@ -52,7 +52,7 @@ class UserController {
         $response::json([
             "error"   => "false",
             "success" => "true",
-            "jwt"    => $responseUser
+            "jwt"     => $responseUser
         ], 200);
 
         return;
@@ -62,6 +62,14 @@ class UserController {
         $authorization = $request::authorization();
 
         $responseUser = UserService::fetch($authorization);
+
+        if(isset($responseUser['unauthorized'])) {
+            return $response::json([
+                "error"   => "true",
+                "success" => "false",
+                "message" => $responseUser['unauthorized']
+            ], 401);
+        }
 
         if(isset($responseUser['error'])) {
             return $response::json([
@@ -74,11 +82,70 @@ class UserController {
         $response::json([
             "error"   => "false",
             "success" => "true",
-            "jwt"    => $responseUser
+            "jwt"     => $responseUser
         ], 200);
 
         return;
     }
-    public static function update(Request $request, Response $response) {}
-    public static function delete(Request $request, Response $response) {}
+
+    public static function update(Request $request, Response $response) {
+        $authorization = $request::authorization();
+        $body = $request::body();
+
+        $responseUser = UserService::update($authorization, $body);
+
+        if(isset($responseUser['unauthorized'])) {
+            return $response::json([
+                "error"   => "true",
+                "success" => "false",
+                "message" => $responseUser['unauthorized']
+            ], 401);
+        }
+
+        if(isset($responseUser['error'])) {
+            return $response::json([
+                "error"   => "true",
+                "success" => "false",
+                "message" => $responseUser['error']
+            ], 400);
+        }
+
+        $response::json([
+            "error"       => "false",
+            "success"     => "true",
+            "message"     => $responseUser
+        ], 200);
+
+        return;
+    }
+
+    public static function delete(Request $request, Response $response) {
+        $authorization = $request::authorization();
+
+        $responseUser = UserService::remove($authorization);
+
+        if(isset($responseUser['unauthorized'])) {
+            return $response::json([
+                "error"   => "true",
+                "success" => "false",
+                "message" => $responseUser['unauthorized']
+            ], 401);
+        }
+
+        if(isset($responseUser['error'])) {
+            return $response::json([
+                "error"   => "true",
+                "success" => "false",
+                "message" => $responseUser['error']
+            ], 400);
+        }
+
+        $response::json([
+            "error"       => "false",
+            "success"     => "true",
+            "message"     => $responseUser
+        ], 200);
+
+        return;
+    }
 }
