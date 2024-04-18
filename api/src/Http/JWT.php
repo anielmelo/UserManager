@@ -3,11 +3,12 @@
 namespace App\Http;
 
 class JWT {
-    private static string $secret = "secret";
+    private static string $secret;
 
     public static function generate(array $data = []) {
         $header  = json_encode([ 'typ' => 'JWT', 'alg' => 'HS256' ]);
         $payload = json_encode($data);
+        self::$secret = $_ENV['SECRET'];
         
         $base64UrlHeader  = self::base64url_encode($header);
         $base64UrlPayload = self::base64url_encode($payload);
@@ -32,6 +33,8 @@ class JWT {
     }
 
     public static function signature(string $header, string $payload) {
+        self::$secret = $_ENV['SECRET'];
+        
         $signature = hash_hmac('sha256', $header . "." . $payload, self::$secret, true);
 
         return self::base64url_encode($signature);
