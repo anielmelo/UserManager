@@ -12,7 +12,7 @@ class UserController {
         return $response::json([
             "error"   => "false",
             "success" => "true",
-            "message" => "Hello world!"
+            "message" => 'Hello world!'
         ], 200);
     }
 
