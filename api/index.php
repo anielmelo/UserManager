@@ -7,9 +7,9 @@ use App\Core\Core;
 use App\Http\Route;
 use Dotenv\Dotenv;
 
-$path = dirname(__FILE__, 1);
-
-$dotenv = Dotenv::createImmutable($path);
-$dotenv->load();
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
 
 Core::dispatch(Route::routes());
