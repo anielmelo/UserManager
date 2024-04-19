@@ -12,4 +12,5 @@ if (file_exists(__DIR__ . '/.env')) {
     $dotenv->load();
 }
 
+
 Core::dispatch(Route::routes());

@@ -7,10 +7,12 @@ use App\Http\Response;
 
 class Core {
     public static function dispatch(array $routes) {
-        $url = '/';
+        $url = $_SERVER['REQUEST_URI'];
 
-        isset($_GET['url']) && $url .= $_GET['url'];
-
+        if (strpos($url, '/userManager/api') !== false) {
+            $url = str_replace('/userManager/api', '', $url);
+        }
+        
         $url !== '/' && $url = rtrim($url, '/');
 
         $prefixController = 'App\\Controllers\\';
