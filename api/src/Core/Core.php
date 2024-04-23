@@ -18,6 +18,11 @@ class Core {
         $prefixController = 'App\\Controllers\\';
         $routeFound = false;
 
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            Response::json([], 200);
+            return;
+        }
+
         foreach ($routes as $route) {
             $pattern = '#^' . preg_replace('/{id}/', '([\w-]+)', $route['path']) . '$#';
 
