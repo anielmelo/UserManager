@@ -82,7 +82,7 @@ class UserController {
         $response::json([
             "error"   => "false",
             "success" => "true",
-            "jwt"     => $responseUser
+            "user"     => $responseUser
         ], 200);
 
         return;
