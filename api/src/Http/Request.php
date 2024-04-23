@@ -19,14 +19,14 @@ class Request {
     }
 
     public static function authorization() {
-        $authorization = getallheaders();
+        if (!isset($_SERVER['HTTP_AUTHORIZATION'])) return [ 'error' => 'Authorization header not provided!' ];
 
-        if (!isset($authorization['Authorization'])) return [ 'error' => 'Authorization header not provided!' ];
-
-        $tokenPartials = explode(' ', $authorization['Authorization']);
-
+        $authorization = $_SERVER['HTTP_AUTHORIZATION'];
+    
+        $tokenPartials = explode(' ', $authorization);
+    
         if (count($tokenPartials) !== 2) return [ 'error' => 'Provide a valid authorization header!' ];
-
+    
         return $tokenPartials[1] ?? '';
     }
 }
